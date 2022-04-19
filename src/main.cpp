@@ -8,11 +8,14 @@ Display disp;
 
 QueueHandle_t xQueue1;
 
+/*  Task to control display - refreshing 50 hz 
+*
+*/
 void displayUpdate(void * parameter){
   const TickType_t xFrequency = 20;
   TickType_t xLastWakeTime = xTaskGetTickCount();
 
-  uint32_t tmp_disp_number = 3455;
+  uint32_t tmp_disp_number = 54637598;
 
   for(;;){
     xQueueReceive(xQueue1, &(tmp_disp_number), 0);
@@ -21,9 +24,12 @@ void displayUpdate(void * parameter){
 
     vTaskDelayUntil(&xLastWakeTime, xFrequency);
   }
-
 }
 
+
+/*  Task to serial data scanning
+*
+*/
 void serialUpdate(void * parameter){
   uint32_t counter = 0;
   const uint32_t max_counter = 10;
@@ -36,7 +42,7 @@ void serialUpdate(void * parameter){
       xQueueSend( xQueue1, ( void * ) &number_read, ( TickType_t ) 0 );
     }
 
-    if(Serial.available()){
+    if(Serial.available()){ // clear buffer if there are less than 3 bytes for "max_counter" ticks time
       if(++counter >= max_counter){
         while(Serial.read() != -1){}
         counter = 0;

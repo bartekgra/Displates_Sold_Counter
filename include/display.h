@@ -1,6 +1,9 @@
+#ifndef DISPLAY_H_
+#define DISPLAY_H_
+
+
 #include <Adafruit_GFX.h>   // Core graphics library
 #include <RGBmatrixPanel.h> // Hardware-specific library
-// #include <DFRobot_RGBMatrix.h> // Hardware-specific library
 #include <Wire.h>
 #include <SPI.h>
 #include "ShootingStar.h"
@@ -29,8 +32,6 @@ private:
     std::vector<ShootingStar*> shootingstarVec;
     uint32_t actualCounterGenerateSS = 0;
     const uint32_t CounterGenerateSS = 40;
-
-    uint32_t color_pos = 0;
     
     const uint32_t color_numb_step = 10;
     uint32_t color_numb_pos = 0;
@@ -51,5 +52,7 @@ private:
         "SOLD:"
     };
 
-    RGBmatrixPanel *matrix;// = RGBmatrixPanel(A, B, C, D, CLK, LAT, OE, false, WIDTH, pin_list);
+    RGBmatrixPanel *matrix;
 };
+
+#endif

@@ -33,23 +33,13 @@ void ShootingStar::UpdateStarPos(RGBmatrixPanel &matrix)
         colorTail[i].red = 255 * (TAIL_LENGTH - i) / TAIL_LENGTH * 0.3;
         colorTail[i].green = 255 * (TAIL_LENGTH - i) / TAIL_LENGTH * 0.3;
         colorTail[i].blue = 255 * (TAIL_LENGTH - i) / TAIL_LENGTH * 0.1;
-
-        DrawPoint(matrix, 255 * (TAIL_LENGTH - i) / TAIL_LENGTH * 0.3, i);
     }
     
     colorTail[0].red = 255;
     colorTail[0].green = 255;
     colorTail[0].blue = 255 * 0.3;
-    
-    DrawPoint(matrix, 255, 0);
 
     UpdateOutOfDisplayFlag();
-    
-}
-
-void ShootingStar::DrawPoint(RGBmatrixPanel &matrix, uint8_t power, int index){
-        uint16_t tempColor = matrix.Color888(power, power, power * 0.3);
-        matrix.drawPixel(pos_to_dis[index]._x - offsetDisplay, pos_to_dis[index]._y - offsetDisplay, tempColor);
 }
 
 void ShootingStar::SetTail(){
@@ -77,6 +67,16 @@ void ShootingStar::UpdateOutOfDisplayFlag(){
         }
     }
     outOfDisplayFlag = tmp_flag;
+}
+
+uint8_t ShootingStar::getStarColor(const int index, const char* rgbColor){
+    if(strcmp(rgbColor, "red") == 0){
+        return colorTail[index].red;
+    }else if(strcmp(rgbColor, "green") == 0){
+        return colorTail[index].green;
+    }else if(strcmp(rgbColor, "blue") == 0){
+        return colorTail[index].blue;
+    }
 }
 
 void ShootingStar::NormalizedVec(_coordinates_2d<double> &vec){

@@ -1,3 +1,6 @@
+#ifndef SHOOTINGSTAR_H_
+#define SHOOTINGSTAR_H_
+
 #include "math.h"
 #include <RGBmatrixPanel.h> // Hardware-specific library
 
@@ -7,12 +10,11 @@ struct _coordinates_2d{
     T _y;
 };
 
-
 class ShootingStar
 {
 private:
     const static int TAIL_LENGTH = 8;
-    const int offsetDisplay = 5;
+    const static int offsetDisplay = 5;
 
     _coordinates_2d<double> pos;
     _coordinates_2d<double> dir;
@@ -29,8 +31,7 @@ private:
     }colorTail[TAIL_LENGTH];
 
     void SetTail();
-    void DrawPoint(RGBmatrixPanel &matrix, uint8_t power, int index);
-    
+
 public:
     ShootingStar(_coordinates_2d<double> pos, _coordinates_2d<double> dir, double speed);
     ~ShootingStar();
@@ -38,9 +39,15 @@ public:
     void UpdateStarPos(RGBmatrixPanel &matrix);
     bool isOutOfDisplayFlag(){return outOfDisplayFlag;};
     void UpdateOutOfDisplayFlag();
+    uint8_t getStarColor(int index, const char* rgbColor);
+    int getXPos(int index){return pos_to_dis[index]._x;};
+    int getYPos(int index){return pos_to_dis[index]._y;};
 
+    static int getTailLength(){return TAIL_LENGTH;};
+    static int getOffsetDisplay(){return offsetDisplay;};
     static void NormalizedVec(_coordinates_2d<double> &vec);
 
     static int numOfDestruct;
 };
 
+#endif

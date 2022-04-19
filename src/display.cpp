@@ -7,7 +7,6 @@ Display::Display(){
     matrix->begin();
     matrix->setTextSize(1);     // size 1 == 8 pixels high
     matrix->setTextWrap(false);
-
 }
 
 void Display::Loop(uint32_t num_to_print){
@@ -27,8 +26,6 @@ void Display::Loop(uint32_t num_to_print){
     Print_Number(num_to_print);
 
     matrix->swapBuffers(false);
-    
-    if(++color_pos >= 768) color_pos = 0;
 }
 
 // Input a value 0 to 767 to get a color value.
@@ -96,10 +93,22 @@ void Display::UpdateShootingStars(){
         shootingstarVec.push_back(GenerateShootingStar());
     }
 
-    
-
     for(int i = shootingstarVec.size() - 1; i >= 0; i--){
-        shootingstarVec.at(i)->UpdateStarPos(*matrix);
+        ShootingStar *tempStar = shootingstarVec.at(i);
+        tempStar->UpdateStarPos(*matrix);
+        // shootingstarVec.at(i)->UpdateStarPos(*matrix);
+
+        for(int tail_pos = 0; tail_pos < ShootingStar::getTailLength(); tail_pos++){
+            uint16_t tempColor = matrix->Color888(
+                tempStar->getStarColor(tail_pos, "red"),
+                tempStar->getStarColor(tail_pos, "green"),
+                tempStar->getStarColor(tail_pos, "blue"));
+            matrix->drawPixel(
+                tempStar->getXPos(tail_pos) - ShootingStar::getOffsetDisplay(),
+                tempStar->getYPos(tail_pos) - ShootingStar::getOffsetDisplay(),
+                tempColor);
+        }
+        
         if(shootingstarVec.at(i)->isOutOfDisplayFlag()){
             delete shootingstarVec.at(i);
             shootingstarVec.erase(shootingstarVec.begin() + i);
