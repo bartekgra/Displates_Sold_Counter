@@ -76,6 +76,8 @@ uint8_t ShootingStar::getStarColor(const int index, const char* rgbColor){
         return colorTail[index].green;
     }else if(strcmp(rgbColor, "blue") == 0){
         return colorTail[index].blue;
+    }else{
+        return 0;
     }
 }
 

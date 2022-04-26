@@ -4,7 +4,7 @@
 #include <SPI.h>
 #include "display.h"
 
-Display disp;
+Display *disp;
 
 QueueHandle_t xQueue1;
 
@@ -20,7 +20,7 @@ void displayUpdate(void * parameter){
   for(;;){
     xQueueReceive(xQueue1, &(tmp_disp_number), 0);
 
-    disp.Loop(tmp_disp_number);
+    disp->Loop(tmp_disp_number);
 
     vTaskDelayUntil(&xLastWakeTime, xFrequency);
   }
@@ -57,6 +57,7 @@ void serialUpdate(void * parameter){
 }
 
 void setup() {
+  disp = new Display();
   Serial.begin(115200);
   xQueue1 = xQueueCreate( 1, sizeof(uint32_t));
 

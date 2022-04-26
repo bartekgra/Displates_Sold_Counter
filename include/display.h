@@ -7,6 +7,7 @@
 #include <Wire.h>
 #include <SPI.h>
 #include "ShootingStar.h"
+#include <vector>
 
 
 #define CLK     19
