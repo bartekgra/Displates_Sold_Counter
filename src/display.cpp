@@ -96,13 +96,12 @@ void Display::UpdateShootingStars(){
     for(int i = shootingstarVec.size() - 1; i >= 0; i--){
         ShootingStar *tempStar = shootingstarVec.at(i);
         tempStar->UpdateStarPos(*matrix);
-        // shootingstarVec.at(i)->UpdateStarPos(*matrix);
 
         for(int tail_pos = 0; tail_pos < ShootingStar::getTailLength(); tail_pos++){
             uint16_t tempColor = matrix->Color888(
-                tempStar->getStarColor(tail_pos, "red"),
-                tempStar->getStarColor(tail_pos, "green"),
-                tempStar->getStarColor(tail_pos, "blue"));
+                tempStar->getStarColor(tail_pos, colorId::red),
+                tempStar->getStarColor(tail_pos, colorId::green),
+                tempStar->getStarColor(tail_pos, colorId::blue));
             matrix->drawPixel(
                 tempStar->getXPos(tail_pos) - ShootingStar::getOffsetDisplay(),
                 tempStar->getYPos(tail_pos) - ShootingStar::getOffsetDisplay(),

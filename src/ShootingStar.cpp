@@ -69,12 +69,12 @@ void ShootingStar::UpdateOutOfDisplayFlag(){
     outOfDisplayFlag = tmp_flag;
 }
 
-uint8_t ShootingStar::getStarColor(const int index, const char* rgbColor){
-    if(strcmp(rgbColor, "red") == 0){
+uint8_t ShootingStar::getStarColor(const int index, colorId rgbColor){
+    if(rgbColor == colorId::red){
         return colorTail[index].red;
-    }else if(strcmp(rgbColor, "green") == 0){
+    }else if(rgbColor == colorId::green){
         return colorTail[index].green;
-    }else if(strcmp(rgbColor, "blue") == 0){
+    }else if(rgbColor == colorId::blue){
         return colorTail[index].blue;
     }else{
         return 0;
