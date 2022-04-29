@@ -10,6 +10,8 @@ struct _coordinates_2d{
     T _y;
 };
 
+enum class colorId{red, green, blue};
+
 class ShootingStar
 {
 private:
@@ -39,7 +41,7 @@ public:
     void UpdateStarPos(RGBmatrixPanel &matrix);
     bool isOutOfDisplayFlag(){return outOfDisplayFlag;};
     void UpdateOutOfDisplayFlag();
-    uint8_t getStarColor(int index, const char* rgbColor);
+    uint8_t getStarColor(int index, colorId rgbColor);
     int getXPos(int index){return pos_to_dis[index]._x;};
     int getYPos(int index){return pos_to_dis[index]._y;};
 
